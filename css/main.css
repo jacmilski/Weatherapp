@@ -21,8 +21,8 @@ main {
 .weather-info {
   height: auto;
   width: 40%;
-  max-width: 1000px;
   max-height: 700px;
+  max-width: 1000px;
   padding: 5%;
   border-radius: 10px;
   background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(245,245,245,0.9) 100%);
