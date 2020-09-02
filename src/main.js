@@ -31,14 +31,22 @@ const setupListener = () => {
     viewElems.searchInput.addEventListener('keydown', onEnterSubmit); 
     viewElems.searchButton.addEventListener('click', onClickSubmit)
 };
-
+import { getWeatherByCity } from './apiService.js'
 
 const initializeApp = () => { 
     connectHTMLElems(); // funkcja chwytająca elementy DOM
     setupListener(); // funkcja mająca zadanie nasłuchiwania zdarzeń na wielu elementach
 };
 
-const onEnterSubmit = () => {};
+const onEnterSubmit = (event) => {
+    console.log(event)
+    if (event.key === "Enter") { // jeśli zdarzenie naciśnięcia klawisza dotyczyło klawisza 'Enter...
+        let query = viewElems.searchInput.value //...przypisujemy wartość (czyli nazwę miasta wpisaną do inputa)
+        getWeatherByCity(query) //...i wywołaj funkcję zwracającą żądanie dotyczącą konkretnego miasta (w zmiennej query)
+        //która przekazywana jest do parametru 'city' funkcji getWeatherByCity() w pliku apiService.js
+        .then(data => console.log(data))
+    }
+};
 const onClickSubmit = () => {};
 
 
