@@ -3,7 +3,7 @@ export const getWeatherByCity = (city) => {
     )
     .then(respons => respons.json() // stream zamieniony na obiekt json
     ) 
-    .then(data => { //obiekt json zwraca nam tablicę
+    .then(data => { //obiekt json zwraca nam tablicę (wcześniej sprawdzono)
         const woeid = data[0].woeid; // 1 el tablicy jest obiektem, z niego wyciągamy to co jest we właściwości 'woeid'
         // i przypisujemy do zmiennej
         return fetch(`https://www.metaweather.com/api/location/${woeid}/`)

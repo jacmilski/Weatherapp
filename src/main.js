@@ -1,3 +1,4 @@
+
 const viewElems = {} // obiekt przetrzymujący elementy jako obiekt globalny
 
 const getDOMElem = (id) => {
@@ -31,6 +32,7 @@ const setupListener = () => {
     viewElems.searchInput.addEventListener('keydown', onEnterSubmit); 
     viewElems.searchButton.addEventListener('click', onClickSubmit)
 };
+
 import { getWeatherByCity } from './apiService.js'
 
 const initializeApp = () => { 
@@ -39,7 +41,7 @@ const initializeApp = () => {
 };
 
 const onEnterSubmit = (event) => {
-    console.log(event)
+    //console.log(event)
     if (event.key === "Enter") { // jeśli zdarzenie naciśnięcia klawisza dotyczyło klawisza 'Enter...
         let query = viewElems.searchInput.value //...przypisujemy wartość (czyli nazwę miasta wpisaną do inputa)
         getWeatherByCity(query) //...i wywołaj funkcję zwracającą żądanie dotyczącą konkretnego miasta (w zmiennej query)
