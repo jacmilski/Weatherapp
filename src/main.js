@@ -2,7 +2,7 @@
 const viewElems = {} // obiekt przetrzymujący elementy jako obiekt globalny
 
 const getDOMElem = (id) => {
-    return document.getElementById(id)
+    return document.getElementById(id);
 }
 
 const connectHTMLElems = () => {
@@ -34,7 +34,7 @@ const setupListener = () => {
     viewElems.returnToSearchBtn.addEventListener('click', returnToSearch);
 };
 
-import { getWeatherByCity } from './apiService.js'
+import { getWeatherByCity } from './apiService.js';
 
 const initializeApp = () => { 
     connectHTMLElems(); // funkcja chwytająca elementy DOM
@@ -67,8 +67,6 @@ const displayWeatherData = data => {
     fadeInOut();
 
     const weather = data.consolidated_weather[0];
-    console.log(weather);
-    console.log(data)
     viewElems.weatherCity.innerText = data.title;
     viewElems.weatherIcon.src = `https://www.metaweather.com/static/img/weather/${weather.weather_state_abbr}.svg`;
     viewElems.weatherIcon.alt = weather.weather_state_name;
@@ -86,7 +84,7 @@ const fadeInOut = () => {
     } else {
         viewElems.mainContainer.style.opacity = '1';
     }
-}
+};
 
 const switchView = () => {
     if (viewElems.weatherSearchView.style.display !== 'none') {
@@ -98,7 +96,7 @@ const switchView = () => {
         viewElems.weatherSearchView.style.display = 'flex';
         
     }
-}
+};
 
 const returnToSearch = () => {
     fadeInOut();
@@ -106,6 +104,6 @@ const returnToSearch = () => {
         switchView();
         fadeInOut();
     }, 500)
-}
+};
 
 document.addEventListener('DOMContentLoaded', initializeApp);
