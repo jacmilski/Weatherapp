@@ -21,7 +21,7 @@ const connectHTMLElems = () => {
     viewElems.weatherCurrentTemp = getDOMElem('weatherCurrentTemp');
     viewElems.weathermaxTemp = getDOMElem('weatherMaxTemp');
     viewElems.weatherMinTemp = getDOMElem('weatherMinTemp');
-
+    
     viewElems.returnToSearchBtn = getDOMElem('returnToSearchBtn');
     
 } /* przekazujemy nazwę id do parametru id funkcji getDOMElem()
@@ -49,18 +49,36 @@ const onEnterSubmit = (event) => {
         getWeatherByCity(query) //...i wywołaj funkcję zwracającą żądanie dotyczącą konkretnego miasta (w zmiennej query)
         //która przekazywana jest do parametru 'city' funkcji getWeatherByCity() w pliku apiService.js
         .then(data => { 
-            console.log(data);
-            switchView();
-            fadeInOut();
+            displayWeatherData(data);
         });
     }
 };
 const onClickSubmit = () => {
+    fadeInOut();
     let query = viewElems.searchInput.value;
     getWeatherByCity(query)
-    .then(data => console.log(data));
-    switchView();
+    .then(data => {
+        displayWeatherData(data);   
+    });
 };
+
+const displayWeatherData = data => {
+    switchView();
+    fadeInOut();
+
+    const weather = data.consolidated_weather[0];
+    console.log(weather);
+    console.log(data)
+    viewElems.weatherCity.innerText = data.title;
+    viewElems.weatherIcon.src = `https://www.metaweather.com/static/img/weather/${weather.weather_state_abbr}.svg`;
+    viewElems.weatherIcon.alt = weather.weather_state_name;
+    const currentTemp = weather.the_temp.toFixed(2); 
+    const maxTemp = weather.max_temp.toFixed(2);
+    const minTemp = weather.min_temp.toFixed(2);    
+    viewElems.weatherCurrentTemp.innerText = `Current temp : ${currentTemp}°C`; 
+    viewElems.weathermaxTemp.innerText = `Max temp : ${maxTemp}°C`;
+    viewElems.weatherMinTemp.innerText =`Min temp : ${minTemp}°C`;    
+}
 
 const fadeInOut = () => {
     if (viewElems.mainContainer.style.opacity === '1' || viewElems.mainContainer.style.opacity === '') {
