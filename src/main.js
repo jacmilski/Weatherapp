@@ -77,6 +77,7 @@ class WeatherApp {
         this.fadeInOut();
         const removeP = document.querySelector('p');
         removeP.remove();
+        this.viewElems.searchInput.value = null;
         setTimeout(() => {
             this.switchView();
             this.fadeInOut();
