@@ -24,15 +24,32 @@ class WeatherApp {
         this.viewElems.returnToSearchBtn.addEventListener('click', this.returnToSearch);
     }
 
+    errFindingCity = () => {
+        this.viewElems.searchInput.style.borderColor = 'red';
+        const p = document.createElement('p');
+        p.innerText = 'nie znaleziono miasta';
+        p.style.color = 'red';
+        this.viewElems.searchInput.after(p);
+    }
+
+    errRemove = () => {
+        console.log(p)
+    }
+
+
     handleSubmit = () => {
         if (event.type === 'click' || event.key === 'Enter') {
-            this.fadeInOut();
+            this.fadeInOut();      
             let query = this.viewElems.searchInput.value; //...przypisujemy wartość (czyli nazwę miasta wpisaną do inputa)
             getWeatherByCity(query) //...i wywołaj funkcję zwracającą żądanie dotyczącą konkretnego miasta (w zmiennej query)
         //która przekazywana jest do parametru 'city' funkcji getWeatherByCity() w pliku apiService.js
             .then(data => { 
             this.displayWeatherData(data);
-        });
+            this.viewElems.searchInput.style.borderColor = 'black';            
+        }).catch(() => {
+            this.fadeInOut();
+            this.errFindingCity();
+        })
         }
     }
 
@@ -58,6 +75,8 @@ class WeatherApp {
 
     returnToSearch = () => {
         this.fadeInOut();
+        const removeP = document.querySelector('p');
+        removeP.remove();
         setTimeout(() => {
             this.switchView();
             this.fadeInOut();
